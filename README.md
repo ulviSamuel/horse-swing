@@ -1,138 +1,114 @@
 # Cavalli Swing
 
-![Java](https://img.shields.io/badge/Java-Desktop%20Application-blue)
-![Stato](https://img.shields.io/badge/Stato-Progetto%20scolastico-orange)
-![UI](https://img.shields.io/badge/UI-Swing-green)
-![Architettura](https://img.shields.io/badge/Architettura-MVC%20didattica-lightgrey)
+Java Swing desktop application that presents a four-horse race simulation with animated race lanes and a start/restart control.
 
-**Cavalli Swing** è un progetto Java che simula una corsa di cavalli con interfaccia grafica Swing.  
-Il codice è organizzato in package separati per modello dati, logica di business, interfacce, avvio e viste.
+![Java 11](https://img.shields.io/badge/Java-11-007396?style=flat-square)
+![Swing](https://img.shields.io/badge/UI-Swing-2F6DB0?style=flat-square)
+![Desktop application](https://img.shields.io/badge/Category-Desktop%20application-555555?style=flat-square)
+![Academic project](https://img.shields.io/badge/Classification-Academic%20project-CB8A00?style=flat-square)
+![Year | 2023](https://img.shields.io/badge/Year%20%7C%202023-6B7280?style=flat-square)
 
-Repository: [ulviSamuel/cavalli_swing](https://github.com/ulviSamuel/cavalli_swing)
+> [!NOTE]
+> This repository contains an academic project originally developed during earlier programming studies. It is preserved as a record of the technical knowledge, design decisions, and development experience acquired at the time.
 
----
+## Overview
 
-## Descrizione
+Cavalli Swing builds a desktop race view with four horse lanes. Pressing the **Gioca** button creates a race manager and starts one worker thread per horse. Each horse advances by a configured increment after a randomized delay; when a horse reaches the configured finish position, the race manager stops the workers.
 
-Il progetto implementa una simulazione di gara in cui più cavalli avanzano lungo una pista fino alla determinazione del vincitore.
+The user interface observes changes to each horse's position and updates the corresponding Swing label. The application includes the horse images, logo, and track image required by the view.
 
-La struttura reale del sorgente mostra una separazione chiara delle responsabilità:
+## Features
 
-- `bean` per gli oggetti dati;
-- `business` per la logica applicativa;
-- `interfaces` per i contratti;
-- `views` per la parte grafica Swing;
-- `main` per l’avvio del programma.
+- Starts or restarts a race from the Swing interface.
+- Simulates four independently advancing horses using Java threads.
+- Updates horse positions through model listeners.
+- Stops the race when a horse reaches the configured finish position.
+- Uses bundled image assets for the application icon, horses, and track.
 
----
+## Technology stack
 
-## Funzionalità principali
+- **Language:** Java
+- **UI toolkit:** Java Swing
+- **Runtime/compiler target:** Java 11
+- **Project tooling:** Eclipse Java project metadata
 
-- avvio della simulazione di corsa;
-- gestione concorrenti (cavalli) e stato gara;
-- aggiornamento avanzamento durante la corsa;
-- visualizzazione della simulazione tramite GUI Swing;
-- determinazione del vincitore finale.
+The repository has no dependency manifest or external library declaration; the source uses Java and Swing APIs.
 
----
+## Architecture
 
-## Struttura reale del progetto
+The source follows an educational separation of responsibilities:
+
+- `bean` contains `Cavallo` and `Gioco`, which hold race state.
+- `business` contains `Fantino`, `GestoreGioco`, and `GestorePulsante`, which coordinate worker threads and button actions.
+- `interfaces` contains the `CavalloModificato` listener contract.
+- `views` contains the Swing frame and race-lane components.
+- `main` contains the `Main` entry point and the singleton `Config` object.
+
+This is a practical package-level separation rather than a formally documented production architecture.
+
+## Project structure
 
 ```text
-cavalli_swing/
-│
-├── Cavalli Swing/
-│   ├── src/
-│   │   └── it/volta/ts/ulivisamuel/cavalli_swing/
-│   │       ├── bean/
-│   │       ├── business/
-│   │       ├── interfaces/
-│   │       ├── main/
-│   │       └── views/
-│   │
-│   ├── img/
-│   ├── .classpath
-│   ├── .project
-│   └── .settings/
-│
-└── README.md
+Cavalli Swing/
+├── src/it/volta/ts/ulivisamuel/cavalli_swing/
+│   ├── bean/
+│   ├── business/
+│   ├── interfaces/
+│   ├── main/
+│   └── views/
+├── img/
+│   ├── cavalloN1.png
+│   ├── cavalloN2.png
+│   ├── cavalloN3.png
+│   ├── cavalloN4.png
+│   ├── logo.jpg
+│   └── track.png
+├── .classpath
+├── .project
+└── .settings/
 ```
 
----
+## Getting started
 
-## Architettura
+### Prerequisites
 
-Impostazione didattica a layer:
+- JDK 11.
+- Eclipse or another Java IDE capable of importing an Eclipse Java project.
 
-- **Bean (Model):** classi dati usate nella simulazione (es. cavallo, stato, risultati).
-- **Business:** regole della corsa (avanzamento, controllo fine gara, vincitore).
-- **Interfaces:** astrazioni/contratti tra componenti.
-- **Views:** schermate Swing e aggiornamento grafico.
-- **Main:** entry point applicativo.
+The required Java level is declared in `.classpath` and `.settings/org.eclipse.jdt.core.prefs`.
 
-Questa organizzazione rende il progetto più leggibile e facile da estendere.
+### Import and run with Eclipse
 
----
+1. Import the `Cavalli Swing` directory as an existing Eclipse project.
+2. Run `it.volta.ts.ulivisamuel.cavalli_swing.main.Main` as a Java application.
+3. In the application window, press **Gioca** to start or restart the race.
 
-## Tecnologie utilizzate
+The source loads image assets using relative paths under `img/`; keep the project working directory aligned with the `Cavalli Swing` directory when launching the application.
 
-- **Java** (100% repository)
-- **Java Swing** per la GUI desktop
-- **OOP** (incapsulamento, separazione responsabilità, modularità)
+### Compile from a terminal
 
----
-
-## Esecuzione del progetto
-
-### Requisiti
-
-- JDK 8+ (consigliato)
-- IDE Java (Eclipse/IntelliJ/NetBeans) oppure terminale
-
-### Avvio da IDE
-
-1. Importa la cartella `Cavalli Swing` come progetto Java.
-2. Individua la classe nel package `main`.
-3. Esegui la classe con metodo `public static void main(String[] args)`.
-
-### Compilazione da terminale (generica)
+From the repository root:
 
 ```bash
-javac -d out $(find . -name "*.java")
-java -cp out it.volta.ts.ulivisamuel.cavalli_swing.main.Main
+cd "Cavalli Swing"
+mkdir -p bin
+find src -name '*.java' -print0 | xargs -0 javac -d bin
 ```
 
-> Se la classe di avvio ha un nome diverso da `Main`, sostituisci l’ultimo comando con il fully-qualified name corretto.
+The command compiles the repository's Java sources into the Eclipse-configured `bin` output directory. The application entry point is:
 
----
+```text
+it.volta.ts.ulivisamuel.cavalli_swing.main.Main
+```
 
-## Obiettivi didattici
+## Testing
 
-Il progetto è utile per esercitarsi su:
+No automated test sources or test configuration are present in the repository. Compilation is the available verification step.
 
-- progettazione di applicazioni desktop Java;
-- separazione Model/Business/View;
-- organizzazione a package;
-- simulazioni con aggiornamento stato e output grafico.
+## Project status
 
----
+The Git history records the original implementation as completed in March 2023. The repository is retained as an academic project rather than documented as a current production application.
 
-## Possibili miglioramenti futuri
+## License
 
-- parametri gara configurabili (numero cavalli, lunghezza pista, velocità);
-- gestione multithreading più avanzata per animazioni concorrenti;
-- statistiche e storico gare;
-- test unitari della logica business;
-- miglioramento UI/UX grafica.
-
----
-
-## Autore
-
-Realizzato da **[ulviSamuel](https://github.com/ulviSamuel)**.
-
----
-
-## Licenza
-
-Progetto sviluppato per finalità scolastiche/didattiche.
+No license file or explicit license declaration is present in the repository.
