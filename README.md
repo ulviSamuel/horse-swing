@@ -1,4 +1,4 @@
-# Cavalli Swing
+# Horse Swing
 
 Java Swing desktop application that presents a four-horse race simulation with animated race lanes and a start/restart control.
 
@@ -111,4 +111,4 @@ The Git history records the original implementation as completed in March 2023. 
 
 ## License
 
-No license file or explicit license declaration is present in the repository.
+This project is shared for educational and portfolio purposes. All rights reserved unless otherwise stated.
